@@ -1,0 +1,25 @@
+name: Run Bot Every 5 Hours
+
+on:
+  schedule:
+    - cron: '0 */5 * * *'  # هر 5 ساعت یک‌بار اجرا
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install yfinance pandas
+
+    - name: Run bot
+      run: python main.py
